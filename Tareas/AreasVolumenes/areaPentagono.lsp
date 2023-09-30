@@ -1,0 +1,5 @@
+(defun pentagono () 
+(print "Estamos calculando el area de un pentagono, dame la medida del perimetro: ") 
+(setq a (read)) 
+(print "dame la medida del apotema: ") 
+(setq b (read)) (/ (* a b) 2) )

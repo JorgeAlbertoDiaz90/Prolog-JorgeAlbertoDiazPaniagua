@@ -1,0 +1,5 @@
+(defun rombo () 
+(print "Estamos calculando el area de un rombo, dame la medida de la diagonal mayor: ") 
+(setq a (read)) 
+(print "dame la medida de la diagonal menor: ") 
+(setq b (read)) (/ (* a b) 2) )

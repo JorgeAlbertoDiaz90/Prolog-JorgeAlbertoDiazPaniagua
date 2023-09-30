@@ -1,0 +1,7 @@
+(defun triangulo ()
+  (print "Estamos calculando el area de un triangulo, dame la medida de la base: ")
+  (setq a (read))
+  (print "Dame la medida de la altura: ")
+  (setq b (read))
+  (/ (* a b) 2)
+)

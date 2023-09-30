@@ -1,5 +1,0 @@
-(defun trapecio (a b c)
-	(+ a b)
-	(/ a 2)
-	(* a c)
-	)

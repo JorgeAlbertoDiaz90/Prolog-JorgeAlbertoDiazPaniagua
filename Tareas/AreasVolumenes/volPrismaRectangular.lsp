@@ -1,0 +1,8 @@
+(defun prismaRectangular () 
+    (print "Estamos calculando el volumen de un prisma rectangular, dame la medida de la base: ") 
+    (setq a (read)) 
+    (print "Dame la medida del ancho: ") 
+    (setq b (read)) 
+    (print "Dame la medida de la altura: ") 
+    (setq c (read)) ( * ( * a b ) c) 
+)

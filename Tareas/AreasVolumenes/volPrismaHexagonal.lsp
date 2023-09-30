@@ -1,0 +1,8 @@
+(defun prismaHexagonal () 
+    (print "Estamos calculando el volumen de un prisma Hexagonal, dame la medida de un lado: ") 
+    (setq a (read)) 
+    (print "Dame la medida del apotema: ") 
+    (setq b (read)) 
+    (print "Dame la medida de la altura: ") 
+    (setq c (read)) ( * ( * ( * a 6 ) b ) c ) 
+)

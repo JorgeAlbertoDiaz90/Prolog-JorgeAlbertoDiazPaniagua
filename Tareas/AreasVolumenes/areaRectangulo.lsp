@@ -1,0 +1,5 @@
+(defun rectangulo () 
+(print "Estamos calculando el area de un rectangulo, dame la medida de la base: ") 
+(setq a (read)) 
+(print "dame la medida de la altura: ") 
+(setq b (read)) (* a b) )

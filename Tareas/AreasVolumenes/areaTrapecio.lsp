@@ -1,0 +1,5 @@
+(defun trapecio () 
+(print "Estamos calculando el area de un trapecio, dame la medida de la base mayor: ") 
+(setq a (read)) (print "dame la medida de la base menor: ") 
+(setq b (read)) (print "dame la medida de la altura: ") 
+(setq c (read)) ( / ( * (+ a b) c) 2 ) )

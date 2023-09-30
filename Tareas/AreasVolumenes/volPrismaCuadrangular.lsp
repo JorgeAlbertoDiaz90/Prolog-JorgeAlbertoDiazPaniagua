@@ -1,0 +1,6 @@
+(defun prismaCuadrangular () 
+    (print "Estamos calculando el volumen de un prisma cuadrangular, dame la medida de un lado: ") 
+    (setq a (read)) 
+    (print "Dame la medida de la altura: ") 
+    (setq b (read)) ( * ( * a a ) b ) 
+)

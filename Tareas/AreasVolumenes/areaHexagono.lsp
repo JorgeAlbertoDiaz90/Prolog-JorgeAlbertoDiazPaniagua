@@ -1,0 +1,6 @@
+(defun hexagono () 
+    (print "Estamos calculando el area de un hexagono, dame la medida del perimetro: ") 
+    (setq a (read)) 
+    (print "Dame la medida del apotema: ") 
+    (setq b (read)) (/ (* a b) 2) 
+)
