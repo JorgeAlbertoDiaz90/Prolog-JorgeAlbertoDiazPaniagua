@@ -1,4 +1,3 @@
-:- discontiguous template/3.
 
 fermind:-	
 	writeln('Hola, soy FerMind.'),
@@ -85,6 +84,15 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([tengo, una, s(_)], [flagSoluciones], [3]).
 	template([tengo, s(_)], [flagSoluciones], [1]).
 
+	% tema de interes
+
+	% Modificamos la plantilla para la nueva pregunta
+
+	template([fermind, cuales, son, los, sintomas, de, s(_)], [flagSintomas], [6]).
+	template(_, [' No te entiendo, por favor reformula la pregunta. '], []). 
+
+	
+
 	% Faringitis con sus sintomas
 
 	elizaSintomas(X, R) :-
@@ -113,6 +121,8 @@ eliza(Input):- Input == ['Adios', '.'],
 
 	% enfermedad
 
+	
+
 	%%declaraciones de enfermedades
 	enfermedad(faringitis).
 
@@ -125,12 +135,7 @@ eliza(Input):- Input == ['Adios', '.'],
 
 
 
-% tema de interes
 
-% Modificamos la plantilla para la nueva pregunta
-
-template([fermind, cuales, son, los, sintomas, de, s(_)], [flagSintomas], [6]).
-template(_, [' No te entiendo, por favor reformula la pregunta. '], []). 
 
 % Agregamos nuevos hechos para los síntomas
 sintoma(dolordegarganta).
@@ -139,8 +144,7 @@ sintoma(doloraltragar).
 sintoma(malestargeneral).
 sintoma(dolorcabeza).
 
-% Modificamos el predicado para mostrar todos los síntomas de una enfermedad
-elizaSintoma(X, R) :- enfermedad(X, Y), findall(S, sintomaRelacionado(X, S), R).
+
 
 % Nuevo predicado para obtener síntomas relacionados con una enfermedad
 sintomaRelacionado(Enfermedad, Sintoma) :- sintoma(Sintoma), sintomade(Sintoma, Enfermedad).
