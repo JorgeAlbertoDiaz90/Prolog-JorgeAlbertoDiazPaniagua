@@ -45,11 +45,9 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([que, puedes, hacer, _], ['Puedo responder algunas preguntas, proporcionar información acerca de la faringitis y de la fabulosa serie de HBO Game of thrones.'], []).
 	template([como, funciona, _], ['Funciono procesando el texto de entrada y generando respuestas basadas en el conocimiento y patrones de lenguaje aprendidos durante mi entrenamiento e implementacion de informacion que mi creador me esta añadiendo y actualizando.'], []).
 	template([cual, es, tu, hobby, _], ['Como base de conocimiento, no tengo hobbies en el sentido tradicional, pero espero estar disfrutando ayudando y aprendiendo nuevas cosas y tratando de entender el dialecto de los humanos.'], []).
-
 	template([cual, es, tu, color, favorito, _], ['Como soy una base de conocimientos, no tengo la capacidad de percibir los colores, pero puedo decirte que los colores vibrantes y cálidos suelen ser agradables para muchas personas'], []).
 	template([quien, te, creo, _], ['Fui desarrollado en la fase 1 en parte por el profesor JESUS EDUARDO ALCARAZ CHAVEZ, sin embargo, el que me termino de esculpir fue el alumno Jorge Alberto Diaz'], []).
 	template([me, podrias, dar, el, _, hoy], ['Disculpame pero esa informacion no la tengo debido a que aun no tengo conexion a la red con informacion actualizada, sin embargo, estamos en temporada navideña y comienzan los frios por lo tanto es mejor que cuando salgas a la calle te pongas un sueter.'], []).
-
 
 	template([muy, bien, gracias, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
 	template([al, demonio, me, siento, de, la, fregada, _], ['quieres que llame al 911?'], []).
@@ -58,6 +56,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([me, siento, muy, mal, _], ['Tranquilizate y dime, como te sientes? o quieres que llame al 911?'], []).
 	template([me, siento, mal, _], ['Respira hondo y dime, como te sientes?'], []).
 
+	% Enfermedad
 	% Preguntas simples señálando informacion acerca de la enfermedad
 
 	template([que, es, la, faringitis, _], ['La faringitis es un Dolor o irritación en la garganta que puede ocurrir o no al tragar. A menudo acompaña a las infecciones, como un resfriado o la gripe.'],[]).
@@ -67,7 +66,6 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([como, se, detecta, la, faringitis, _], ['presentación más o menos del cuadro y sus características clínicas (fiebre, malestar general, mal aliento, dolor cervical, etc.) hacen sospechar un cuadro de faringo-amigdalitis aguda.'], []).
 	template([como, se, trata, la, faringitis, _], ['Independientemente de la causa de la faringitis aguda, será necesario que el paciente tenga un adecuado soporte hídrico y alimentario, Deberán usarse antiinflamatorios no esteroideos. En algunos cuadros muy severos puede ser recomendable usar corticoides, especialmente para tratar el dolor. '], []).
 	template([cuales, son, los, posibles, riesgos, de, la, faringitis, _], ['Las faringitis no suelen producir complicaciones. Sin embargo de forma muy infrecuente cuando la infección es por bacterias, generalmente por estreptococo, pueden producir: Fiebre reumática. Es una complicación muy rara en la actualidad.'], []).
-
 
 	% Sintomas
 
@@ -84,33 +82,19 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([tengo, una, s(_)], [flagSoluciones], [3]).
 	template([tengo, s(_)], [flagSoluciones], [1]).
 
-	% tema de interes
+	% sintomas de faringitis.
+
+	template([sintomas], ListaResultado, []):-
+		findall(Sintomas, sintomas(Sintomas), ListaResultado).
 
 	% Modificamos la plantilla para la nueva pregunta
 
 	template([fermind, cuales, son, los, sintomas, de, s(_)], [flagSintomas], [6]).
 	template(_, [' No te entiendo, por favor reformula la pregunta. '], []). 
 
-	
-
 	% Faringitis con sus sintomas
-
-	elizaSintomas(X, R) :-
-			sintomas(X),
-			(
-				X = malestargeneral, R = ['Si, el malestar general es probable de que sea un sintoma de la faringitis.'];
-				X = fiebre, R = ['Si, la fiebre puede ser un sintoma de la faringitis.'];
-				X = altragar, R = ['Si, el dolor de garganta al tragar puede ser un sintoma de la faringitis.'];
-				X = enrojecimientodelafaringe, R = ['Si, el enrojecimiento de la faringe puede ser un sintoma de la faringitis.'];
-				X = gangliosinflamados, R = ['Si, los granglios cervicales inflamados puede ser un sintoma de la faringitis.'];
-				X = infeccion, R = ['Si, una infeccion puede ser un sintoma de la faringitis.'];
-				X = garganta, R = ['Si, dolor de garganta puede ser un sintoma de la faringitis.'];
-				
-				R = ['Si, el dolor de', X, 'puede ser un sintoma de la faringitis.']
-			).
-
-		elizaSintomas(X, R):- \+sintomas(X), R = [al, parecer, el, sintoma, X , no, es, sintoma, de, faringitis].
-
+		elizaSintomas(X, R):- sintomas(X), R = [si, X, es, un, sintoma, del, botulismo].
+    	elizaSintomas(X, R):- \+sintomas(X), R = [X, no, es, un, sintoma, del, botulismo].
 		sintomas(malestargeneral).
 		sintomas(fiebre).
 		sintomas(altragar).
@@ -120,10 +104,6 @@ eliza(Input):- Input == ['Adios', '.'],
 		sintomas(garganta).
 
 	% enfermedad
-
-	
-
-	%%declaraciones de enfermedades
 	enfermedad(faringitis).
 
 	%determinar un síntoma a que enfermedad(es) pertecene
@@ -132,18 +112,6 @@ eliza(Input):- Input == ['Adios', '.'],
 	sintomade(fiebre, faringitis). %la mucosidades sintoma de bronquitis
 	sintomade(dolorcabeza, faringitis). %la mucosidades sintoma de bronquitis
 	sintomade(malestargeneral, faringitis). %la mucosidades sintoma de bronquitis
-
-
-
-
-
-% Agregamos nuevos hechos para los síntomas
-sintoma(dolordegarganta).
-sintoma(fiebre).
-sintoma(doloraltragar).
-sintoma(malestargeneral).
-sintoma(dolorcabeza).
-
 
 
 % Nuevo predicado para obtener síntomas relacionados con una enfermedad
