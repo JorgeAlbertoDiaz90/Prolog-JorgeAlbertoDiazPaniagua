@@ -50,6 +50,8 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([me, podrias, dar, el, _, hoy], ['Disculpame pero esa informacion no la tengo debido a que aun no tengo conexion a la red con informacion actualizada, sin embargo, estamos en temporada navideña y comienzan los frios por lo tanto es mejor que cuando salgas a la calle te pongas un sueter.'], []).
 
 	template([muy, bien, gracias, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
+
+	template([ok, hablame, mas, sobre, el, tema, _], ['El tema que te puede interesar es acerca de la fantastica serie de Game Of Thrones'], []).
 	template([al, demonio, me, siento, de, la, fregada, _], ['quieres que llame al 911?'], []).
 	template([obvio, mamita, rica, _], ['ok, enseguida te pondre en contacto'], []).
 	template([me, siento, bien, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
@@ -74,12 +76,14 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([si, tengo, s(_), es, sintoma, de, faringitis, _], [flagSintomas], [2]).
 	template([si, tengo, una, s(_), es, sintoma, de, faringitis, _], [flagSintomas], [3]).
 	template([si, tengo, problemas, s(_), es, sintoma, de, faringitis, _], [flagSintomas], []).
+	template([tengo, sintoma, de, s(_)], [flagfamSintomas],[3]).
 	
 
 	% Preguntas acerca de medicamentos que puede tomar.
 
 	template([puedo, tomar, s(_), para, la, faringitis, _], [flagMedicamentos], [2]).
 	template([puedo, tomar, s(_)], [flagMedicamentos], [2]).
+	
 	
 	% sintomas de faringitis.
 
@@ -131,6 +135,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los stark
 
 		template([es, s(_), de, la, casa, de, los, stark, _], [flagStark], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamStark],[5]).
 		template([que, emblema, representa, la, casa, de, los, stark, _], ['El emblema que representa la casa de los stark es un lobo azul.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, stark ], ListaResultado, []):-
 			findall(Stark, stark(Stark), ListaResultado).
@@ -138,6 +143,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los targaryen
 
 		template([es, s(_), de, la, casa, de, los, targaryen, _], [flagTargaryen], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamTargaryen],[5]).
 		template([que, emblema, representa, la, casa, de, los, targaryen, _], ['El emblema que representa la casa de los targaryen es un dragon de tres cabezas rojo.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, targaryen ], ListaResultado, []):-
 			findall(Targaryen, targaryen(Targaryen), ListaResultado).
@@ -145,6 +151,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los greyjoy
 
 		template([es, s(_), de, la, casa, de, los, greyjoy, _], [flagGreyjoy], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamGreyjoy],[5]).
 		template([que, emblema, representa, la, casa, de, los, greyjoy, _], ['El emblema que representa la casa de los greyjoy es un kraken dorado sobre un fondo negro.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, greyjoy ], ListaResultado, []):-
 			findall(Greyjoy, greyjoy(Greyjoy), ListaResultado).
@@ -152,6 +159,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los tyrell
 
 		template([es, s(_), de, la, casa, de, los, tyrell, _], [flagTyrell], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamTyrell],[5]).
 		template([que, emblema, representa, la, casa, de, los, tyrell, _], ['El emblema que representa la casa de los tyrell es una rosa dorada sobre un campo verde.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, tyrell ], ListaResultado, []):-
 			findall(Tyrell, tyrell(Tyrell), ListaResultado).
@@ -159,6 +167,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los martell
 
 		template([es, s(_), de, la, casa, de, los, martell, _], [flagMartell], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamMartell],[5]).
 		template([que, emblema, representa, la, casa, de, los, martell, _], ['El emblema que representa la casa de los martell es un sol y una lanza dorados sobre un fondo naranja. '],[]).
 		template([cuales, son, los, miembros, de, la, casa, martell ], ListaResultado, []):-
 			findall(Martell, martell(Martell), ListaResultado).
@@ -166,6 +175,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los lannister
 
 		template([es, s(_), de, la, casa, de, los, lannister, _], [flagLannister], [1]).
+		template([quien, es, el, hijo, de, s(_)], [flagfamLannister],[5]).
 		template([que, emblema, representa, la, casa, de, los, lannister, _], ['El emblema que representa la casa de los lannister es un leon dorado sobre un campo rojo. '],[]).
 		template([cuales, son, los, miembros, de, la, casa, lannister ], ListaResultado, []):-
 			findall(Lannister, lannister(Lannister), ListaResultado).
@@ -173,6 +183,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los baratheon
 
 		template([es, s(_), de, la, casa, de, los, baratheon, _], [flagBaratheon], [1]).
+		template([quien, es, el, hermano, de, s(_)], [flagfamBaratheon],[5]).
 		template([que, emblema, representa, la, casa, de, los, baratheon, _], ['El emblema que representa la casa de los baratheon es un ciervo coronado negro sobre un campo dorado. '],[]).
 		template([cuales, son, los, miembros, de, la, casa, baratheon ], ListaResultado, []):-
 			findall(Baratheon, baratheon(Baratheon), ListaResultado).
@@ -182,9 +193,17 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Sintomas
 		elizaSintomas(X, R):- sintomas(X), R = [si, X, es, muy, probable, que, sea, un, sintoma, de, la, faringitis].
     	elizaSintomas(X, R):- \+sintomas(X), R = [X, no, es, un, sintoma, de, la, faringitis].
+		elizafamSintomas(X,R) :- enfermedadSint(X,Y), R=["si tienes sintoma de", X, "es", Y].	
+		enfermedadSint(malestargeneral, faringitis).
+		enfermedadSint(fiebre, faringitis).
+		enfermedadSint(doloraltragar, faringitis).
+		enfermedadSint(enrojecimientodelafaringe, faringitis).
+		enfermedadSint(gangliosinflamados, faringitis).
+		enfermedadSint(infeccion, faringitis).
+		enfermedadSint(dolordegarganta, faringitis).
 		sintomas(malestargeneral).
 		sintomas(fiebre).
-		sintomas(altragar).
+		sintomas(doloraltragar).
 		sintomas(enrojecimientodelafaringe).
 		sintomas(gangliosinflamados).
 		sintomas(infeccion).
@@ -219,6 +238,18 @@ eliza(Input):- Input == ['Adios', '.'],
 		% casa de los stark
 		elizaStark(X, R):- stark(X), R = [si, X, es, un, stark, de, la, casa, stark, de, winterfell].
 		elizaStark(X, R):- \+stark(X), R = [X, no, es, de, la, casa, de, los, stark].
+		familiaStark(X,R) :- padreStark(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		familiaStark(X,R) :- madreStark(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].	
+		padreStark(ned, robb).		 
+		padreStark(ned, sansa).
+		padreStark(ned, arya). 
+		padreStark(ned, bran). 
+		padreStark(ned, rickon).
+		madreStark(catelyn, robb).		 
+		madreStark(catelyn, sansa).
+		madreStark(catelyn, arya). 
+		madreStark(catelyn, bran). 
+		madreStark(catelyn, rickon).
 		stark('ned').
 		stark('catelyn').
 		stark('robb').
@@ -230,6 +261,10 @@ eliza(Input):- Input == ['Adios', '.'],
 		% casa de los targaryen
 		elizaTargaryen(X, R):- targaryen(X), R = [si, X, es, un, targaryen, de, la, casa, targaryen, ciudad, de, valyria].
 		elizaTargaryen(X, R):- \+targaryen(X), R = [X, no, es, de, la, casa, de, los, targaryen].
+		familiaTargaryen(X,R) :- padreTargaryen(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		padreTargaryen(aerys, rhaegar).		 
+		padreTargaryen(aerys, viserys).		 
+		padreTargaryen(aerys, daenerys).		 
 		targaryen('aerys_ll_El_rey_loco').
 		targaryen('rhaegar').
 		targaryen('viserys').
@@ -238,31 +273,52 @@ eliza(Input):- Input == ['Adios', '.'],
 		% casa de los greyjoy
 		elizaGreyjoy(X, R):- greyjoy(X), R = [si, X, es, un, greyjoy, de, la, casa, greyjoy, de, las, islas, de, hierro].
 		elizaGreyjoy(X, R):- \+greyjoy(X), R = [X, no, es, de, la, casa, de, los, greyjoy].
+		familiaGreyjoy(X,R) :- padreGreyjoy(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		padreGreyjoy(balon, theon).	
+		padreGreyjoy(balon, yara).	
+		padreGreyjoy(balon, victarion).	
 		greyjoy('balon'). 
 		greyjoy('theon'). 
 		greyjoy('yara'). 
-		greyjoy('euron'). 
+		greyjoy('victarion'). 
 
 		% casa de tyrell
 		elizaTyrell(X, R):- tyrell(X), R = [si, X, es, un, tyrell, de, la, casa, tyrell, de, altojardin].
 		elizaTyrell(X, R):- \+tyrell(X), R = [X, no, es, de, la, casa, de, los, tyrell].
+		familiaTyrell(X,R) :- padreTyrell(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		padreTyrell(mace, willas).	
+		padreTyrell(mace, garlan).	
+		padreTyrell(mace, margaery).	
+		padreTyrell(mace, loras).	
 		tyrell('mace').
-		tyrell('alerie').
+		tyrell('willas').
+		tyrell('garlan').
 		tyrell('margaery').
 		tyrell('loras').
 
 		% casa de los martell
 		elizaMartell(X, R):- martell(X), R = [si, X, es, un, martell, de, la, casa, martell, de, la, region, de, dorne].
 		elizaMartell(X, R):- \+martell(X), R = [X, no, es, de, la, casa, de, los, martell].
+		familiaMartell(X,R) :- padreMartell(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		padreMartell(doran, arianne).	
+		padreMartell(doran, quentyn).	
+		padreMartell(doran, trystane).	
 		martell('doran').
-		martell('oberyn').
-		martell('elia').
+		martell('arianne').
 		martell('quentyn').
 		martell('trystane').
 
 		% casa de los lannister
 		elizaLannister(X, R):- lannister(X), R = [si, X, es, un, lannister, de, la, casa, lannister, de, la, region, de, casterly, rock].
 		elizaLannister(X, R):- \+lannister(X), R = [X, no, es, de, la, casa, de, los, lannister].
+		familiaLannister(X,R) :- padreLannister(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		familiaLannister(X,R) :- madreLannister(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		padreLannister(tywin, cersei).	
+		padreLannister(tywin, jaime).	
+		padreLannister(tywin, tyrion).	
+		madreLannister(cersei, joffrey).	
+		madreLannister(cersei, mycella).	
+		madreLannister(cersei, tommen).	
 		lannister('tywin').
 		lannister('cersei').
 		lannister('jaime').
@@ -274,6 +330,13 @@ eliza(Input):- Input == ['Adios', '.'],
 		% casa de los baratheon
 		elizaBaratheon(X, R):- baratheon(X), R = [si, X, es, un, baratheon, de, la, casa, baratheon, de, las, tierras, de, la, tormenta].
 		elizaBaratheon(X, R):- \+baratheon(X), R = [X, no, es, de, la, casa, de, los, baratheon].
+		familiaBaratheon(X,R) :- hermanoBaratheon(X,ListaResultado), R=["el hermano de", X, "es", ListaResultado].
+		hermanoBaratheon(robert, stannis).	
+		hermanoBaratheon(robert, renly).	
+		hermanoBaratheon(stannis, robert).	
+		hermanoBaratheon(stannis, renly).	
+		hermanoBaratheon(renly, robert).	
+		hermanoBaratheon(renly, stannis).	
 		baratheon('robert').
 		baratheon('stannis').
 		baratheon('renly').
@@ -316,6 +379,12 @@ replace0([I|_], Input, _, Resp, R):-
     nth0(0, Resp, X),
     X == flagSintomas,
     elizaSintomas(Atom, R).
+
+replace0([I|_], Input, _, Resp, R):-
+    nth0(I, Input, Atom),
+    nth0(0, Resp, X),
+    X == flagfamSintomas,
+    elizafamSintomas(Atom, R).
 		  
 % Eliza Especialistas:
 replace0([I|_], Input, _, Resp, R):-
@@ -347,12 +416,24 @@ replace0([I|_], Input, _, Resp, R):-
     X == flagStark,
     elizaStark(Atom, R).
 
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamStark,
+	familiaStark(Atom, R).
+
 % Eliza casa de los targaryen
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
     nth0(0, Resp, X),
     X == flagTargaryen,
     elizaTargaryen(Atom, R).
+
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamTargaryen,
+	familiaTargaryen(Atom, R).
 
 % Eliza casa de los greyjoy
 replace0([I|_], Input, _, Resp, R):-
@@ -361,12 +442,24 @@ replace0([I|_], Input, _, Resp, R):-
     X == flagGreyjoy,
     elizaGreyjoy(Atom, R).
 
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamGreyjoy,
+	familiaGreyjoy(Atom, R).
+
 % Eliza casa de los tyrell
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
     nth0(0, Resp, X),
     X == flagTyrell,
     elizaTyrell(Atom, R).
+
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamTyrell,
+	familiaTyrell(Atom, R).
 
 % Eliza casa de los martell
 replace0([I|_], Input, _, Resp, R):-
@@ -375,6 +468,12 @@ replace0([I|_], Input, _, Resp, R):-
     X == flagMartell,
     elizaMartell(Atom, R).
 
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamMartell,
+	familiaMartell(Atom, R).
+
 % Eliza casa de los lannister
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
@@ -382,10 +481,25 @@ replace0([I|_], Input, _, Resp, R):-
     X == flagLannister,
     elizaLannister(Atom, R).
 
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamLannister,
+	familiaLannister(Atom, R).
+
 % Eliza casa de los baratheon
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
     nth0(0, Resp, X),
     X == flagBaratheon,
     elizaBaratheon(Atom, R).
+
+replace0([I|_], Input, _, Resp, R):-
+	nth0(I, Input, Atom),
+	nth0(0, Resp, X),
+	X == flagfamBaratheon,
+	familiaBaratheon(Atom, R).
+
+
+
 
