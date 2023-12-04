@@ -17,7 +17,14 @@ eliza(Input) :-
 	readln(Input1),
 	eliza(Input1), !.
 
-template([hola, _], ['Hola,  que puedo ayudarte?'], []).
+template([hola, mi, nombre, es, s(_), '.'], ['Hola', 0, 'Como', estas, tu, '?'], [4]).
+template([buendia, mi, nombre, es, s(_), '.'], ['buen dia', 'Como', estas, tu, 0, '?'], [4]).
+
+template([hola, ',', mi, nombre, es, s(_), '.'], ['Hola', 0, 'Como', estas, tu, '?'], [5]).
+template([buendia, ',', mi, nombre, es, s(_), '.'], ['Buendia', 'Como', estas, tu, 0, '?'], [5]).
+
+template([hola, _], ['Hola', 'como', estas, tu, '?'], []).
+template([buendia, _], ['Buendia', 'Como', estas, tu, '?'], []).
 
 template([yo, s(_), yo, soy, s(_),'.'], [por, que, 0, eres, 1, '?'], [1, 4]).
 template([yo, s(_), tu, '.'], [why, do, you, 0, me ,'?'], [1]).
