@@ -1,7 +1,19 @@
 
 fermind:-	
 	writeln('Hola, soy FerMind.'),
-	writeln('Dime, con quien tengo el gusto?.'),
+	writeln('Estoy creada para hablar acerca de la enfermedad faringitis.'),
+	writeln('Tambien te puedo hablar acerca de Game of thrones y en especifico en la tema de las casas y hablarte de que trata la serie.'),
+	writeln('Sino sabes como comenzar o que preguntar te puedo ayudar con las siguientes opciones y porfavor cada vez que hagas alguna consulta terminalo con un punto.'),
+	writeln('1. hola mi nombre es INGRESA TU NOMBRE.'),
+	writeln('1.1 muy bien gracias.'),
+	writeln('1.2 me siento mal.'),
+	writeln('2. que es la faringitis.'),
+	writeln('2.1 cuales son los sintomas.'),
+	writeln('2.2 que medicamento puedo tomar.'),
+	writeln('3 que es game of thrones.'),
+	writeln('3.1 cuales son las casas que existen.'),
+	writeln('3.2 cuales son los miembros de la casa stark.'),
+
 	
 	readln(Input),
 	eliza(Input),!.
@@ -57,6 +69,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([me, siento, bien, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
 	template([me, siento, muy, mal, _], ['Tranquilizate y dime, como te sientes? o quieres que llame al 911?'], []).
 	template([me, siento, mal, _], ['Respira hondo y dime, como te sientes?'], []).
+	template(_, ['podrias volver a plantear tu pregunta porque no entiendo sino entiendes vuelve a teclear fermind. y te mostrara la estructura por si quieres recordar.'], []). 
 
 	% Enfermedad
 	% Preguntas simples señálando informacion acerca de la enfermedad
