@@ -69,7 +69,6 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([me, siento, bien, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
 	template([me, siento, muy, mal, _], ['Tranquilizate y dime, como te sientes? o quieres que llame al 911?'], []).
 	template([me, siento, mal, _], ['Respira hondo y dime, como te sientes?'], []).
-	template(_, ['podrias volver a plantear tu pregunta porque no entiendo sino entiendes vuelve a teclear fermind. y te mostrara la estructura por si quieres recordar.'], []). 
 
 	% Enfermedad
 	% Preguntas simples señálando informacion acerca de la enfermedad
@@ -201,6 +200,8 @@ eliza(Input):- Input == ['Adios', '.'],
 		template([cuales, son, los, miembros, de, la, casa, baratheon ], ListaResultado, []):-
 			findall(Baratheon, baratheon(Baratheon), ListaResultado).
 
+		template(_, ['quizas esa pregunta no se encuentra dentro de mi base de conocimientos, puedes volver a poner fermind. para que veas como formular una consulta.'],[]).
+
 	% Reglas para las flags de la enfermedad
 
 	% Sintomas
@@ -245,7 +246,7 @@ eliza(Input):- Input == ['Adios', '.'],
 		casas('martell').
 		casas('lannister').
 		casas('baratheon').
-		casas('snow').
+		
 
 	% Miembros de las casas
 		% casa de los stark
