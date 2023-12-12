@@ -69,7 +69,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	template([me, siento, bien, _], ['Excelente, tengo un tema que te puede interesar, Te gustaria saber mas acerca del tema?'], []).
 	template([me, siento, muy, mal, _], ['Tranquilizate y dime, como te sientes? o quieres que llame al 911?'], []).
 	template([me, siento, mal, _], ['Respira hondo y dime, como te sientes?'], []).
-
+	
 	% Enfermedad
 	% Preguntas simples señálando informacion acerca de la enfermedad
 
@@ -147,6 +147,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los stark
 
 		template([es, s(_), de, la, casa, de, los, stark, _], [flagStark], [1]).
+		template([mi, personaje, es, s(_), con, (_), y, tiene, el, (_), _], [flagMultiStark], [3, 5, 9]).
 		template([quien, es, el, hijo, de, s(_)], [flagfamStark],[5]).
 		template([que, emblema, representa, la, casa, de, los, stark, _], ['El emblema que representa la casa de los stark es un lobo azul.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, stark ], ListaResultado, []):-
@@ -155,6 +156,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los targaryen
 
 		template([es, s(_), de, la, casa, de, los, targaryen, _], [flagTargaryen], [1]).
+		template([es, s(_), y, fisicamente, tiene, (_), y, (_)], [flagMultiTargaryen], [1, 5, 7]).
 		template([quien, es, el, hijo, de, s(_)], [flagfamTargaryen],[5]).
 		template([que, emblema, representa, la, casa, de, los, targaryen, _], ['El emblema que representa la casa de los targaryen es un dragon de tres cabezas rojo.'],[]).
 		template([cuales, son, los, miembros, de, la, casa, targaryen ], ListaResultado, []):-
@@ -187,6 +189,7 @@ eliza(Input):- Input == ['Adios', '.'],
 	% Casa de los lannister
 
 		template([es, s(_), de, la, casa, de, los, lannister, _], [flagLannister], [1]).
+		template([se, reconoce, como, s(_), y, tiene, los, (_), y, (_), _], [flagMultiLannister], [3, 7, 9]).
 		template([quien, es, el, hijo, de, s(_)], [flagfamLannister],[5]).
 		template([que, emblema, representa, la, casa, de, los, lannister, _], ['El emblema que representa la casa de los lannister es un leon dorado sobre un campo rojo. '],[]).
 		template([cuales, son, los, miembros, de, la, casa, lannister ], ListaResultado, []):-
@@ -199,8 +202,6 @@ eliza(Input):- Input == ['Adios', '.'],
 		template([que, emblema, representa, la, casa, de, los, baratheon, _], ['El emblema que representa la casa de los baratheon es un ciervo coronado negro sobre un campo dorado. '],[]).
 		template([cuales, son, los, miembros, de, la, casa, baratheon ], ListaResultado, []):-
 			findall(Baratheon, baratheon(Baratheon), ListaResultado).
-
-		template(_, ['quizas esa pregunta no se encuentra dentro de mi base de conocimientos, puedes volver a poner fermind. para que veas como formular una consulta.'],[]).
 
 	% Reglas para las flags de la enfermedad
 
@@ -246,7 +247,7 @@ eliza(Input):- Input == ['Adios', '.'],
 		casas('martell').
 		casas('lannister').
 		casas('baratheon').
-		
+		casas('snow').
 
 	% Miembros de las casas
 		% casa de los stark
@@ -254,6 +255,9 @@ eliza(Input):- Input == ['Adios', '.'],
 		elizaStark(X, R):- \+stark(X), R = [X, no, es, de, la, casa, de, los, stark].
 		familiaStark(X,R) :- padreStark(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
 		familiaStark(X,R) :- madreStark(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].	
+		multiStark(X, Y, Z, R):- personajeStarkNed(X, Y, Z), R = [si, es, X, con, Y, y, tiene, Z, el, personaje, que, buscas, es, ned, stark].
+		multiStark(X, Y, Z, R):- \+personajeStarkNed(X, Y, Z), R = [sino , es, X, con, Y, y, que, tenga, Z, no, es, ned, stark].
+		personajeStarkNed('honorable', 'ojos_grises', 'cabello_oscuro').
 		padreStark(ned, robb).		 
 		padreStark(ned, sansa).
 		padreStark(ned, arya). 
@@ -276,6 +280,9 @@ eliza(Input):- Input == ['Adios', '.'],
 		elizaTargaryen(X, R):- targaryen(X), R = [si, X, es, un, targaryen, de, la, casa, targaryen, ciudad, de, valyria].
 		elizaTargaryen(X, R):- \+targaryen(X), R = [X, no, es, de, la, casa, de, los, targaryen].
 		familiaTargaryen(X,R) :- padreTargaryen(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		multiTargaryen(X, Y, Z, R):- personajeTargaryenAerys(X, Y, Z), R = [si, es, X, y, tiene, Y, y, tambien, el, Z, el, personaje, que, buscas, es, aerys, targaryen].
+		multiTargaryen(X, Y, Z, R):- \+personajeTargaryenAerys(X, Y, Z), R = [sino, es, X, y, con, Y, y, que, tenga, Z, no, es, aerys, targaryen].
+		personajeTargaryenAerys('loco', 'ojos_violetas', 'cabello_plateado').
 		padreTargaryen(aerys, rhaegar).		 
 		padreTargaryen(aerys, viserys).		 
 		padreTargaryen(aerys, daenerys).		 
@@ -327,6 +334,9 @@ eliza(Input):- Input == ['Adios', '.'],
 		elizaLannister(X, R):- \+lannister(X), R = [X, no, es, de, la, casa, de, los, lannister].
 		familiaLannister(X,R) :- padreLannister(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
 		familiaLannister(X,R) :- madreLannister(X,ListaResultado), R=["el hij@ de", X, "es", ListaResultado].
+		multiLannister(X, Y, Z, R):- personajeLannisterJaime(X, Y, Z), R = [si, es, X, y, tiene, los, Y, y, tambien, el, Z, el, personaje, que, buscas, es, jaime, lannister].
+		multiLannister(X, Y, Z, R):- \+personajeLannisterJaime(X, Y, Z), R = [sino, es, X, y, con, los, Y, y, que, tenga, Z, no, es, jaime, lannister].
+		personajeLannisterJaime('matarreyes', 'ojos_verdes', 'cabello_dorado').
 		padreLannister(tywin, cersei).	
 		padreLannister(tywin, jaime).	
 		padreLannister(tywin, tyrion).	
@@ -371,7 +381,6 @@ match([S|Stim],[_|Input]) :-
 	match(Stim, Input),!.
 
 replace0([], _, _, Resp, R):- append(Resp, [], R),!.
-
 
 replace0([I|Index], Input, N, Resp, R):-
 	length(Index, M), M =:= 0,
@@ -436,6 +445,20 @@ replace0([I|_], Input, _, Resp, R):-
 	X == flagfamStark,
 	familiaStark(Atom, R).
 
+	% Stark
+replace0([I,J,K|_], Input, _, Resp, R):-
+		nth0(I, Input, Atom),
+		nth0(0, Resp, X),
+		X == flagMultiStark,
+		nth0(J, Input, Atom2),
+		nth0(0, Resp, Y),
+		Y == flagMultiStark,
+		nth0(K, Input, Atom3),
+		nth0(0, Resp, Z),
+		Z == flagMultiStark,
+		multiStark(Atom, Atom2, Atom3, R).
+
+
 % Eliza casa de los targaryen
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
@@ -448,6 +471,19 @@ replace0([I|_], Input, _, Resp, R):-
 	nth0(0, Resp, X),
 	X == flagfamTargaryen,
 	familiaTargaryen(Atom, R).
+
+% Targaryen
+	replace0([I,J,K|_], Input, _, Resp, R):-
+		nth0(I, Input, Atom),
+		nth0(0, Resp, X),
+		X == flagMultiTargaryen,
+		nth0(J, Input, Atom2),
+		nth0(0, Resp, Y),
+		Y == flagMultiTargaryen,
+		nth0(K, Input, Atom3),
+		nth0(0, Resp, Z),
+		Z == flagMultiTargaryen,
+		multiTargaryen(Atom, Atom2, Atom3, R).
 
 % Eliza casa de los greyjoy
 replace0([I|_], Input, _, Resp, R):-
@@ -501,6 +537,19 @@ replace0([I|_], Input, _, Resp, R):-
 	X == flagfamLannister,
 	familiaLannister(Atom, R).
 
+	% Lannister
+replace0([I,J,K|_], Input, _, Resp, R):-
+		nth0(I, Input, Atom),
+		nth0(0, Resp, X),
+		X == flagMultiLannister,
+		nth0(J, Input, Atom2),
+		nth0(0, Resp, Y),
+		Y == flagMultiLannister,
+		nth0(K, Input, Atom3),
+		nth0(0, Resp, Z),
+		Z == flagMultiLannister,
+		multiLannister(Atom, Atom2, Atom3, R).
+
 % Eliza casa de los baratheon
 replace0([I|_], Input, _, Resp, R):-
     nth0(I, Input, Atom),
@@ -513,6 +562,8 @@ replace0([I|_], Input, _, Resp, R):-
 	nth0(0, Resp, X),
 	X == flagfamBaratheon,
 	familiaBaratheon(Atom, R).
+
+	
 
 
 
